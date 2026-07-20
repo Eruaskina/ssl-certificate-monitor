@@ -1,0 +1,6 @@
+{
+  "name": "SSL Certificate Validator",
+  "description": "Check SSL certificate validation, analyze chain of trust, discover subdomains, and monitor expiry alerts on a comprehensive bulk scanning dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
