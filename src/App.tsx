@@ -1233,7 +1233,7 @@ export default function App() {
                           {m.domain}
                         </h3>
                         <p className={`text-xs mb-4 font-mono ${isDark ? "text-slate-500" : "text-slate-400"}`}>
-                          Issuer: {cert.issuer || "Unknown"}
+                          Issuer: {typeof cert.issuer === "object" ? (cert.issuer.CN || cert.issuer.O || "Unknown") : (cert.issuer || "Unknown")}
                         </p>
 
                         {/* Quick Specs */}
