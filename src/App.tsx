@@ -85,11 +85,251 @@ const AsisLogoSymbol = ({ className = "w-8 h-8" }: { className?: string }) => (
   </svg>
 );
 
+const TRANSLATIONS = {
+  tr: {
+    dashboard: "Altyapı Sağlığı",
+    chainAnalysis: "Sertifika Zinciri Analizi",
+    subdomainExplorer: "Alt Alan Adı Gezgini",
+    alertsSandbox: "Kritik Alarm Merkezi",
+    alertStatus: "Alarm Durumu",
+    criticalExpiryAlert: "Kritik Süre Sonu Alarmları Var!",
+    expiringSoon: "Süresi Yakında Dolan",
+    allCertificatesSecure: "Tüm Sertifikalar Güvenli",
+    monitoringCount: "global ağlarda {count} alan adı izleniyor",
+    verifyingCAs: "taranan uç noktalar için recursive CA ve yol doğrulaması yapılıyor",
+    probingWildcards: "wildcard kayıtları ve recursive alt alan adları taranıyor",
+    remediationTracking: "kritik uç noktalar için yenileme ve iyileştirme takibi",
+    importCsv: "CSV İçe Aktar",
+    stopScan: "Taramayı Durdur",
+    runFullScan: "Tam Tarama Başlat",
+    addDomain: "Alan Adı Ekle",
+    adding: "Ekleniyor...",
+    enterDomainPlaceholder: "Örn: secure.enterprise.com, badssl.com",
+    discoverSubdomains: "Alt Alan Adlarını Otomatik Keşfet",
+    filterStatus: "Durum",
+    filterGrade: "Derece",
+    filterExpiry: "Süre",
+    filterIp: "IP Filtresi",
+    filterAll: "Tümü",
+    filterPlaceholder: "Alan adı veya IP filtrele...",
+    displayMode: "Görüntüleme Modu:",
+    liteNoc: "Lite NOC",
+    grouped: "Gruplanmış",
+    list: "Liste",
+    statusVisibility: "Durum Görünürlüğü:",
+    valid: "Geçerli",
+    warning: "Uyarı",
+    failedExpired: "Başarısız/Süresi Dolan",
+    sortByLabel: "Sıralama:",
+    domainNameAZ: "Alan Adı (A-Z)",
+    expiryTimeline: "Süre Zaman Çizelgesi (Kalan Gün)",
+    lastScanTimestamp: "Son Tarama Zamanı",
+    asc: "Artan (Asc)",
+    desc: "Azalan (Desc)",
+    daysRemainingLabel: "Kalan Gün",
+    bitmesiEnYakin: "Bitmesi En Yakın",
+    scanningDomains: "Alan Adları Taranıyor (Hızlı Eşzamanlı Mod • 8 Worker)",
+    checked: "kontrol edildi",
+    backToDashboard: "Dashboard'a Dön",
+    criticalThreshold: "Kritik Seviye Süre Sınırı: ≤15 Gün",
+    validBadge: "GEÇERLİ",
+    expiredBadge: "SÜRESİ DOLMUŞ",
+    expiringSoonBadge: "YAKINDA BİTİYOR",
+    failedBadge: "BAĞLANTI HATASI",
+    invalidChainBadge: "GEÇERSİZ ZİNCİR",
+    disabledBadge: "PASİF",
+    columnDomain: "Alan Adı",
+    columnGrade: "Derece",
+    columnExpiry: "Süre Sonu",
+    columnIpAddress: "IP Adresi",
+    columnLastChecked: "Son Kontrol",
+    columnActions: "İşlemler",
+    columnCertificateIssuer: "Sertifika Sağlayıcısı",
+    columnKeySpecs: "Anahtar Detayları",
+    columnSecurityAnalysis: "Güvenlik Analizi",
+    issuer: "Sertifika Sağlayıcısı (Issuer)",
+    subject: "Konu (Subject)",
+    validFrom: "Başlangıç Tarihi",
+    validTo: "Bitiş Tarihi",
+    serialNumber: "Seri Numarası",
+    fingerprint: "SHA-1 Parmak İzi",
+    fingerprint256: "SHA-256 Parmak İzi",
+    keyTypeSize: "Anahtar Tipi / Boyutu",
+    signatureAlgo: "İmza Algoritması",
+    subjectAltNames: "Alternatif Alan Adları (SAN)",
+    rootCA: "Kök CA / Sağlayıcı",
+    selfSigned: "Kendinden İmzalı",
+    stopConfirmTitle: "İzlemeyi durdurmak istediğinize emin misiniz?",
+    stopConfirmDesc: "alan adını izlemeyi durdurmak istediğinize emin misiniz? Bu işlem geçmiş teşhis günlüklerini ve alt alan adı haritasını silecektir.",
+    cancel: "İptal",
+    stopMonitoring: "İzlemeyi Durdur",
+    csvModalTitle: "Toplu Alan Adı İçe Aktarma",
+    csvModalDesc: "Domain listesini CSV formatında yapıştırabilir veya bir .csv / .txt dosyasını sürükleyip bırakabilirsiniz. Her satırda bir domain olmalıdır.",
+    csvInputPlaceholder: "example.com, github.com\ncloudflare.com; google.com\nhttps://microsoft.com",
+    csvImportButton: "Verileri İçe Aktar",
+    csvDropArea: "Dosyayı buraya sürükleyip bırakın veya seçmek için tıklayın",
+    csvParseSuccess: "başarıyla içe aktarıldı!",
+    csvParseError: "CSV ayrıştırma hatası.",
+    aiSecAnalysis: "AI Güvenlik Analizi & Öneriler",
+    aiAnalyzing: "Yapay Cihan ile Analiz Ediliyor...",
+    aiPromptError: "Analiz başarısız oldu.",
+    aiVulnerabilities: "Potansiyel Zafiyetler",
+    aiRecommendations: "İyileştirme Önerileri",
+    aiSummary: "Özet Güvenlik Durumu",
+    subdomainMap: "Alt Alan Adı Haritası & DNS Durumu",
+    subdomainsDiscoveredTitle: "Keşfedilen Alt Alan Adı",
+    noSubdomainDiscovered: "Bu alan adı için keşfedilmiş alt alan adı bulunmamaktadır.",
+    subdomainScanDisabled: "Bu alan adı için alt alan adı taraması devre dışı bırakılmış.",
+    chainVerification: "Sertifika Zinciri Doğrulaması",
+    chainDepth: "Zincir Derinliği",
+    rootAnchor: "Güven Çıpası (Root Anchor)",
+    intermediateCA: "Ara Sertifika Yetkilisi (Intermediate CA)",
+    leafCertificate: "Yaprak Sertifika (Leaf Certificate)",
+    scanned: "Taranan",
+    noData: "Henüz veri bulunmuyor. Bir tarama başlatın.",
+    passiveMode: "Pasif Mod",
+    activeMode: "Aktif Mod",
+    scanSingle: "Taramayı Başlat",
+    deleteSingle: "Sil",
+    loadingText: "Yükleniyor...",
+    domainAddedSuccess: "Alan adı başarıyla eklendi.",
+    domainRemovedSuccess: "Alan adı listeden kaldırıldı.",
+    scanCompleted: "Tarama tamamlandı.",
+    viewDetails: "Detayları Göster",
+    close: "Kapat",
+  },
+  en: {
+    dashboard: "Infrastructure Health",
+    chainAnalysis: "Chain of Trust Analysis",
+    subdomainExplorer: "Subdomain Discovery",
+    alertsSandbox: "Critical Expiry & Renewal Alerts",
+    alertStatus: "Alert Status",
+    criticalExpiryAlert: "Critical expiry alert!",
+    expiringSoon: "Expiring soon",
+    allCertificatesSecure: "All certificates secure",
+    monitoringCount: "Monitoring {count} domains across global networks",
+    verifyingCAs: "Verifying recursive CAs and path validation for scanned endpoints",
+    probingWildcards: "Probing wildcard records and recursive subdomains",
+    remediationTracking: "Remediation tracking and renewal logs for critical endpoints",
+    importCsv: "Import CSV",
+    stopScan: "Stop Scan",
+    runFullScan: "Run Full Scan",
+    addDomain: "Add Domain",
+    adding: "Adding...",
+    enterDomainPlaceholder: "e.g. secure.enterprise.com, badssl.com",
+    discoverSubdomains: "Discover Subdomains Automatically",
+    filterStatus: "Status",
+    filterGrade: "Grade",
+    filterExpiry: "Expiry",
+    filterIp: "IP Filter",
+    filterAll: "All",
+    filterPlaceholder: "Filter domains or IPs...",
+    displayMode: "Display Mode:",
+    liteNoc: "Lite NOC",
+    grouped: "Grouped",
+    list: "List",
+    statusVisibility: "Status Visibility:",
+    valid: "Valid",
+    warning: "Warning",
+    failedExpired: "Failed/Expired",
+    sortByLabel: "Sort:",
+    domainNameAZ: "Domain Name (A-Z)",
+    expiryTimeline: "Expiry Timeline (Days)",
+    lastScanTimestamp: "Last Scan Timestamp",
+    asc: "Ascending",
+    desc: "Descending",
+    daysRemainingLabel: "Days Left",
+    bitmesiEnYakin: "Expiring Soonest",
+    scanningDomains: "Scanning Domains (Fast Concurrent Mode • 8 Workers)",
+    checked: "checked",
+    backToDashboard: "Back to Dashboard",
+    criticalThreshold: "Critical Level Status Threshold: ≤15 Days to Expiry",
+    validBadge: "VALID",
+    expiredBadge: "EXPIRED",
+    expiringSoonBadge: "EXPIRING SOON",
+    failedBadge: "CONN FAILED",
+    invalidChainBadge: "INVALID CHAIN",
+    disabledBadge: "DISABLED",
+    columnDomain: "Domain",
+    columnGrade: "Grade",
+    columnExpiry: "Expiry",
+    columnIpAddress: "IP Address",
+    columnLastChecked: "Last Checked",
+    columnActions: "Actions",
+    columnCertificateIssuer: "Certificate Issuer",
+    columnKeySpecs: "Key Details",
+    columnSecurityAnalysis: "Security Analysis",
+    issuer: "Certificate Issuer",
+    subject: "Subject",
+    validFrom: "Valid From",
+    validTo: "Valid To",
+    serialNumber: "Serial Number",
+    fingerprint: "SHA-1 Fingerprint",
+    fingerprint256: "SHA-256 Fingerprint",
+    keyTypeSize: "Key Type / Size",
+    signatureAlgo: "Signature Algorithm",
+    subjectAltNames: "Subject Alternative Names (SAN)",
+    rootCA: "Root CA / Authority",
+    selfSigned: "Self-signed",
+    stopConfirmTitle: "Are you sure you want to stop monitoring?",
+    stopConfirmDesc: "Are you sure you want to stop monitoring {domain}? This will clear its diagnostic logs and active subdomain map.",
+    cancel: "Cancel",
+    stopMonitoring: "Stop Monitoring",
+    csvModalTitle: "Bulk Import Domain Monitors",
+    csvModalDesc: "Paste domain names or drag and drop a .csv / .txt file. Separators can be commas, semicolons, or newlines.",
+    csvInputPlaceholder: "example.com, github.com\ncloudflare.com; google.com\nhttps://microsoft.com",
+    csvImportButton: "Import Domains",
+    csvDropArea: "Drag & drop file here or click to select",
+    csvParseSuccess: "imported successfully!",
+    csvParseError: "Error parsing CSV input.",
+    aiSecAnalysis: "AI Security Analysis & Recommendations",
+    aiAnalyzing: "Analyzing with AI...",
+    aiPromptError: "Analysis failed.",
+    aiVulnerabilities: "Potential Vulnerabilities",
+    aiRecommendations: "Remediation & Upgrades",
+    aiSummary: "Security Summary",
+    subdomainMap: "Subdomain Map & DNS Health",
+    subdomainsDiscoveredTitle: "Subdomains Discovered",
+    noSubdomainDiscovered: "No subdomains have been discovered for this domain.",
+    subdomainScanDisabled: "Subdomain scanning is disabled for this domain.",
+    chainVerification: "Certificate Chain Verification",
+    chainDepth: "Chain Depth",
+    rootAnchor: "Trust Anchor (Root CA)",
+    intermediateCA: "Intermediate Certificate Authority",
+    leafCertificate: "Leaf Certificate",
+    scanned: "Scanned",
+    noData: "No data available yet. Trigger a scan.",
+    passiveMode: "Passive Mode",
+    activeMode: "Active Mode",
+    scanSingle: "Trigger Scan",
+    deleteSingle: "Delete",
+    loadingText: "Loading...",
+    domainAddedSuccess: "Domain added successfully.",
+    domainRemovedSuccess: "Domain removed successfully.",
+    scanCompleted: "Scan completed.",
+    viewDetails: "View Details",
+    close: "Close",
+  }
+};
+
 export default function App() {
+  const [language, setLanguage] = useState<"tr" | "en">(() => {
+    const saved = localStorage.getItem("asis_language");
+    return saved === "en" ? "en" : "tr";
+  });
+
   const [theme, setTheme] = useState<"dark" | "light">(() => {
     const saved = localStorage.getItem("asis_theme");
     return saved === "light" ? "light" : "dark";
   });
+
+  useEffect(() => {
+    localStorage.setItem("asis_language", language);
+  }, [language]);
+
+  const trans = useMemo(() => {
+    return TRANSLATIONS[language] || TRANSLATIONS.tr;
+  }, [language]);
 
   useEffect(() => {
     localStorage.setItem("asis_theme", theme);
@@ -685,6 +925,38 @@ export default function App() {
     showNotification(`Set ${failedMonitors.length} connection-failed domains to passive.`, "success");
   }
 
+  // Enable all passive monitors back to active mode
+  function enablePassiveMonitors() {
+    const passiveMonitors = monitors.filter((m) => m.disabled);
+    if (passiveMonitors.length === 0) {
+      showNotification(
+        language === "tr" ? "Etkinleştirilecek pasif monitör bulunamadı." : "No passive monitors found to enable.",
+        "info"
+      );
+      return;
+    }
+
+    setMonitors((prev) =>
+      prev.map((m) => {
+        if (m.disabled) {
+          return { ...m, disabled: false };
+        }
+        return m;
+      })
+    );
+
+    if (selectedMonitor && selectedMonitor.disabled) {
+      setSelectedMonitor({ ...selectedMonitor, disabled: false });
+    }
+
+    showNotification(
+      language === "tr"
+        ? `${passiveMonitors.length} pasif monitör tekrar aktif edildi.`
+        : `Re-enabled ${passiveMonitors.length} passive monitors.`,
+      "success"
+    );
+  }
+
   // Add single domain
   async function handleAddDomain(e: React.FormEvent) {
     e.preventDefault();
@@ -890,6 +1162,16 @@ export default function App() {
           <span className={`text-[10px] font-bold tracking-widest px-2 py-0.5 rounded border uppercase ${isDark ? "bg-slate-900 border-slate-800 text-[#FCBE13]" : "bg-blue-50 border-blue-100 text-[#1E40AF]"}`}>SSL SENTINEL</span>
         </div>
         <div className="flex items-center gap-2">
+          {/* Language Switcher */}
+          <button
+            onClick={() => setLanguage(prev => prev === "tr" ? "en" : "tr")}
+            className={`p-2 rounded-lg border transition-colors cursor-pointer focus:outline-none text-xs font-bold ${
+              isDark ? "text-slate-300 border-slate-800 bg-slate-900/60 hover:text-white" : "text-[#1E40AF] border-blue-100 bg-blue-50/50 hover:bg-blue-50"
+            }`}
+            title={language === "tr" ? "Switch to English" : "Türkçe'ye Geç"}
+          >
+            {language === "tr" ? "TR" : "EN"}
+          </button>
           {/* Theme Switcher */}
           <button
             onClick={() => setTheme(isDark ? "light" : "dark")}
@@ -921,7 +1203,7 @@ export default function App() {
           <X className="h-5 w-5" />
         </button>
 
-        {/* Brand Logo & Theme Toggler */}
+        {/* Brand Logo & Theme / Language Toggler */}
         <div className="flex items-center justify-between mb-8 shrink-0">
           <div className="flex items-center gap-2.5">
             <AsisLogoSymbol className="w-8 h-8 shrink-0" />
@@ -930,22 +1212,37 @@ export default function App() {
               <span className="text-[10px] font-bold tracking-widest text-[#FCBE13] mt-0.5 uppercase">SSL Sentinel</span>
             </div>
           </div>
-          <button
-            onClick={() => setTheme(isDark ? "light" : "dark")}
-            className={`hidden md:block p-2 rounded-lg border transition-colors cursor-pointer focus:outline-none ${
-              isDark 
-                ? "text-amber-400 border-slate-800 bg-slate-900/60 hover:text-white hover:bg-slate-800" 
-                : "text-[#1E40AF] border-blue-100 bg-blue-50/50 hover:bg-blue-50"
-            }`}
-            title={isDark ? "Light Mode" : "Dark Mode"}
-          >
-            {isDark ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
-          </button>
+          <div className="hidden md:flex items-center gap-1.5">
+            {/* Language Switcher */}
+            <button
+              onClick={() => setLanguage(prev => prev === "tr" ? "en" : "tr")}
+              className={`p-2 rounded-lg border transition-colors cursor-pointer focus:outline-none text-xs font-bold ${
+                isDark 
+                  ? "text-slate-300 border-slate-800 bg-slate-900/60 hover:text-white hover:bg-slate-800" 
+                  : "text-[#1E40AF] border-blue-100 bg-blue-50/50 hover:bg-blue-50"
+              }`}
+              title={language === "tr" ? "Switch to English" : "Türkçe'ye Geç"}
+            >
+              {language === "tr" ? "TR" : "EN"}
+            </button>
+            {/* Theme Switcher */}
+            <button
+              onClick={() => setTheme(isDark ? "light" : "dark")}
+              className={`p-2 rounded-lg border transition-colors cursor-pointer focus:outline-none ${
+                isDark 
+                  ? "text-amber-400 border-slate-800 bg-slate-900/60 hover:text-white hover:bg-slate-800" 
+                  : "text-[#1E40AF] border-blue-100 bg-blue-50/50 hover:bg-blue-50"
+              }`}
+              title={isDark ? "Light Mode" : "Dark Mode"}
+            >
+              {isDark ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
+            </button>
+          </div>
         </div>
 
         {/* Subtitle description */}
         <p className={`text-[11px] leading-normal mb-6 ${t.textMuted}`}>
-          Cryptographic validation, DNS intelligence, and continuous trust mapping
+          {language === "tr" ? "Kriptografik doğrulama, DNS istihbaratı ve sürekli güven haritalama" : "Cryptographic validation, DNS intelligence, and continuous trust mapping"}
         </p>
         
         {/* Navigation */}
@@ -961,7 +1258,7 @@ export default function App() {
           >
             <div className="flex items-center gap-3">
               <div className={`w-1.5 h-1.5 rounded-full ${activeTab === "dashboard" ? (isDark ? "bg-[#FCBE13] animate-pulse" : "bg-[#1E40AF] animate-pulse") : "bg-slate-600"}`} />
-              <span>Dashboard</span>
+              <span>{trans.dashboard}</span>
             </div>
             <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${t.sidebarPill}`}>
               {monitors.length}
@@ -979,7 +1276,7 @@ export default function App() {
           >
             <div className="flex items-center gap-3">
               <div className={`w-1.5 h-1.5 rounded-full ${activeTab === "chain" ? (isDark ? "bg-[#FCBE13]" : "bg-[#1E40AF]") : "bg-slate-600"}`} />
-              <span>Chain Analysis</span>
+              <span>{trans.chainAnalysis}</span>
             </div>
             <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${t.sidebarPill}`}>
               {monitors.filter((m) => m.lastResult && m.lastResult.chain && m.lastResult.chain.length > 0).length}
@@ -997,7 +1294,7 @@ export default function App() {
           >
             <div className="flex items-center gap-3">
               <div className={`w-1.5 h-1.5 rounded-full ${activeTab === "subdomain" ? "bg-teal-400" : "bg-slate-600"}`} />
-              <span>Subdomain Explorer</span>
+              <span>{trans.subdomainExplorer}</span>
             </div>
             <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${t.sidebarPill}`}>
               {monitors.filter((m) => m.subdomainScanEnabled).length}
@@ -1019,7 +1316,7 @@ export default function App() {
                   ? (isDark ? "bg-rose-400 animate-pulse" : "bg-rose-600 animate-pulse") 
                   : (monitors.some(m => m.lastResult?.certDetails?.daysRemaining !== undefined && m.lastResult.certDetails.daysRemaining <= 15) ? "bg-rose-500 animate-pulse" : "bg-slate-600")
               }`} />
-              <span>Critical Alerts</span>
+              <span>{trans.alertsSandbox}</span>
             </div>
             {monitors.some(m => m.lastResult?.certDetails?.daysRemaining !== undefined && m.lastResult.certDetails.daysRemaining <= 15) && (
               <span className="text-[10px] px-1.5 py-0.5 rounded-full font-mono bg-rose-500/10 text-rose-500 border border-rose-500/20 font-bold">
@@ -1036,28 +1333,28 @@ export default function App() {
             className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all text-left cursor-pointer ${t.sidebarInactive}`}
           >
             <div className="w-1.5 h-1.5 rounded-full bg-slate-600" />
-            <span>Bulk Scanner</span>
+            <span>{trans.importCsv}</span>
           </button>
         </nav>
 
         {/* Sidebar Footer Status Card */}
         <div className={`mt-auto border-t pt-6 ${isDark ? "border-slate-800/80" : "border-slate-200/80"}`}>
           <div className={`${t.sidebarFooter} p-4 rounded-xl border`}>
-            <p className={`text-[10px] uppercase tracking-widest mb-1.5 font-semibold ${t.textMuted}`}>Alert Status</p>
+            <p className={`text-[10px] uppercase tracking-widest mb-1.5 font-semibold ${t.textMuted}`}>{trans.alertStatus}</p>
             {metrics.expired > 0 ? (
               <p className="text-xs text-rose-500 flex items-center gap-1.5 font-medium">
                 <span className="inline-block w-2 h-2 rounded-full bg-rose-500 animate-ping shrink-0" />
-                <span>{metrics.expired} Critical expiry alert!</span>
+                <span>{metrics.expired} {trans.criticalExpiryAlert}</span>
               </p>
             ) : metrics.expiringSoon > 0 ? (
               <p className="text-xs text-amber-500 flex items-center gap-1.5 font-medium">
                 <span className="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse shrink-0" />
-                <span>{metrics.expiringSoon} Expiring soon</span>
+                <span>{metrics.expiringSoon} {trans.expiringSoon}</span>
               </p>
             ) : (
               <p className="text-xs text-emerald-500 flex items-center gap-1.5 font-medium">
                 <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-                <span>All certificates secure</span>
+                <span>{trans.allCertificatesSecure}</span>
               </p>
             )}
           </div>
@@ -1079,16 +1376,16 @@ export default function App() {
         <header className={`flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 pb-6 border-b ${isDark ? "border-slate-800/60" : "border-slate-200"}`}>
           <div>
             <h1 className={`text-2xl font-bold tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
-              {activeTab === "dashboard" && "Infrastructure Health"}
-              {activeTab === "chain" && "Chain of Trust Analysis"}
-              {activeTab === "subdomain" && "Subdomain Discovery"}
-              {activeTab === "alerts" && "Critical Expiry & Renewal Alerts"}
+              {activeTab === "dashboard" && trans.dashboard}
+              {activeTab === "chain" && trans.chainAnalysis}
+              {activeTab === "subdomain" && trans.subdomainExplorer}
+              {activeTab === "alerts" && trans.alertsSandbox}
             </h1>
             <p className={`text-sm mt-1 ${isDark ? "text-slate-500" : "text-slate-500"}`}>
-              {activeTab === "dashboard" && `Monitoring ${metrics.total} domains across global networks`}
-              {activeTab === "chain" && `Verifying recursive CAs and path validation for scanned endpoints`}
-              {activeTab === "subdomain" && `Probing wildcard records and recursive subdomains`}
-              {activeTab === "alerts" && `Remediation tracking and renewal logs for critical endpoints`}
+              {activeTab === "dashboard" && (language === "tr" ? `Global ağlarda ${metrics.total} alan adı izleniyor` : `Monitoring ${metrics.total} domains across global networks`)}
+              {activeTab === "chain" && trans.verifyingCAs}
+              {activeTab === "subdomain" && trans.probingWildcards}
+              {activeTab === "alerts" && trans.remediationTracking}
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -1101,7 +1398,7 @@ export default function App() {
               }`}
             >
               <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
-              <span>Import CSV</span>
+              <span>{trans.importCsv}</span>
             </button>
             {scanningAll ? (
               <button
@@ -1109,7 +1406,7 @@ export default function App() {
                 className="flex items-center gap-2 px-4 py-2.5 bg-rose-600 hover:bg-rose-500 text-white font-semibold rounded-lg text-sm transition-all cursor-pointer shadow-lg shadow-rose-950/20"
               >
                 <X className="w-4 h-4" />
-                <span>Stop Scan ({scanProgress.current}/{scanProgress.total})</span>
+                <span>{trans.stopScan} ({scanProgress.current}/{scanProgress.total})</span>
               </button>
             ) : (
               <button
@@ -1122,7 +1419,7 @@ export default function App() {
                 }`}
               >
                 <RefreshCw className="w-4 h-4" />
-                <span>Run Full Scan</span>
+                <span>{trans.runFullScan}</span>
               </button>
             )}
           </div>
@@ -1134,10 +1431,10 @@ export default function App() {
             <div className="flex justify-between items-center text-xs text-emerald-400 font-semibold">
               <span className="flex items-center gap-2">
                 <Loader2 className="h-4 w-4 animate-spin text-emerald-400" />
-                Scanning Domains (Fast Concurrent Mode • 8 Workers)
+                {trans.scanningDomains}
               </span>
               <span>
-                {scanProgress.current} / {scanProgress.total} checked ({Math.round((scanProgress.current / (scanProgress.total || 1)) * 100)}%)
+                {scanProgress.current} / {scanProgress.total} {trans.checked} ({Math.round((scanProgress.current / (scanProgress.total || 1)) * 100)}%)
               </span>
             </div>
             <div className="w-full bg-slate-900/80 h-2 rounded-full overflow-hidden border border-slate-800">
@@ -1411,7 +1708,7 @@ export default function App() {
               onSubmit={handleAddDomain}
               className={`${t.card} p-5 rounded-xl shadow-sm`}
             >
-              <h3 className={`text-sm font-bold mb-3 ${t.textTitle}`}>Add Domain to Sentinel Monitors</h3>
+              <h3 className={`text-sm font-bold mb-3 ${t.textTitle}`}>{language === "tr" ? "Sentinel İzleyicilerine Alan Adı Ekle" : "Add Domain to Sentinel Monitors"}</h3>
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
                   <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
@@ -1419,7 +1716,7 @@ export default function App() {
                     type="text"
                     value={newDomain}
                     onChange={(e) => setNewDomain(e.target.value)}
-                    placeholder="e.g. secure.enterprise.com, badssl.com"
+                    placeholder={trans.enterDomainPlaceholder}
                     className={`w-full border rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none transition-all ${isDark ? "bg-[#0a0b0d] border-slate-800 text-white placeholder-slate-600 focus:border-amber-500/60" : "bg-slate-50 border-slate-200 text-slate-800 placeholder-slate-400 focus:border-blue-500/60"}`}
                   />
                 </div>
@@ -1432,7 +1729,7 @@ export default function App() {
                     className={`w-4 h-4 rounded focus:ring-0 focus:ring-offset-0 cursor-pointer ${isDark ? "border-slate-800 text-amber-500 bg-[#0f1115]" : "border-slate-200 text-blue-600 bg-white"}`}
                   />
                   <label htmlFor="subdomain_disc" className={`text-xs select-none cursor-pointer font-medium ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-                    Discover Subdomains
+                    {trans.discoverSubdomains}
                   </label>
                 </div>
                 <button
@@ -1444,7 +1741,7 @@ export default function App() {
                   }`}
                 >
                   <Plus className="h-4 w-4" />
-                  <span>Monitor</span>
+                  <span>{trans.addDomain}</span>
                 </button>
               </div>
             </form>
@@ -1460,12 +1757,12 @@ export default function App() {
                     onChange={(e) => setStatusFilter(e.target.value)}
                     className={`text-xs px-3 py-2 cursor-pointer rounded-lg ${t.input}`}
                   >
-                    <option value="all">Status: All</option>
-                    <option value="cohort_warning">Out of Sync Only</option>
-                    <option value="valid">Valid Only</option>
-                    <option value="expired">Expired Only</option>
-                    <option value="expiring_soon">Expiring Soon</option>
-                    <option value="connection_failed">Failed Connections</option>
+                    <option value="all">{language === "tr" ? "Durum: Tümü" : "Status: All"}</option>
+                    <option value="cohort_warning">{language === "tr" ? "Yalnızca Senkronizasyon Dışı" : "Out of Sync Only"}</option>
+                    <option value="valid">{language === "tr" ? "Yalnızca Geçerli" : "Valid Only"}</option>
+                    <option value="expired">{language === "tr" ? "Yalnızca Süresi Dolan" : "Expired Only"}</option>
+                    <option value="expiring_soon">{language === "tr" ? "Süresi Yakında Dolan" : "Expiring Soon"}</option>
+                    <option value="connection_failed">{language === "tr" ? "Başarısız Bağlantılar" : "Failed Connections"}</option>
                   </select>
 
                   <select
@@ -1473,12 +1770,12 @@ export default function App() {
                     onChange={(e) => setGradeFilter(e.target.value)}
                     className={`text-xs px-3 py-2 cursor-pointer rounded-lg ${t.input}`}
                   >
-                    <option value="all">Grade: All</option>
-                    <option value="A">Grade A / A+</option>
-                    <option value="B">Grade B</option>
-                    <option value="C">Grade C</option>
-                    <option value="D">Grade D</option>
-                    <option value="F">Grade F</option>
+                    <option value="all">{language === "tr" ? "Derece: Tümü" : "Grade: All"}</option>
+                    <option value="A">{language === "tr" ? "Derece A / A+" : "Grade A / A+"}</option>
+                    <option value="B">{language === "tr" ? "Derece B" : "Grade B"}</option>
+                    <option value="C">{language === "tr" ? "Derece C" : "Grade C"}</option>
+                    <option value="D">{language === "tr" ? "Derece D" : "Grade D"}</option>
+                    <option value="F">{language === "tr" ? "Derece F" : "Grade F"}</option>
                   </select>
 
                   <select
@@ -1486,10 +1783,10 @@ export default function App() {
                     onChange={(e) => setExpiryFilter(e.target.value)}
                     className={`text-xs px-3 py-2 cursor-pointer rounded-lg ${t.input}`}
                   >
-                    <option value="all">Expiry: Any</option>
-                    <option value="critical">Within 7 Days</option>
-                    <option value="warning">Within 30 Days</option>
-                    <option value="safe">Safe (&gt;30d)</option>
+                    <option value="all">{language === "tr" ? "Süre Sonu: Herhangi" : "Expiry: Any"}</option>
+                    <option value="critical">{language === "tr" ? "7 Gün İçinde" : "Within 7 Days"}</option>
+                    <option value="warning">{language === "tr" ? "30 Gün İçinde" : "Within 30 Days"}</option>
+                    <option value="safe">{language === "tr" ? "Güvenli (>30g)" : "Safe (&gt;30d)"}</option>
                   </select>
 
                   <select
@@ -1497,9 +1794,9 @@ export default function App() {
                     onChange={(e) => setActivePassiveFilter(e.target.value)}
                     className={`text-xs px-3 py-2 cursor-pointer rounded-lg ${t.input}`}
                   >
-                    <option value="all">Checks: All</option>
-                    <option value="active">Active Only</option>
-                    <option value="passive">Passive Only</option>
+                    <option value="all">{language === "tr" ? "Kontroller: Tümü" : "Checks: All"}</option>
+                    <option value="active">{language === "tr" ? "Yalnızca Aktifler" : "Active Only"}</option>
+                    <option value="passive">{language === "tr" ? "Yalnızca Pasifler" : "Passive Only"}</option>
                   </select>
 
                   <select
@@ -1507,7 +1804,7 @@ export default function App() {
                     onChange={(e) => setIpFilter(e.target.value)}
                     className={`text-xs px-3 py-2 cursor-pointer rounded-lg max-w-[150px] ${t.input}`}
                   >
-                    <option value="all">IP: All</option>
+                    <option value="all">{language === "tr" ? "IP: Tümü" : "IP: All"}</option>
                     {uniqueIps.map((ip, index) => (
                       <option key={`${ip}-${index}`} value={ip}>
                         {ip}
@@ -1522,7 +1819,7 @@ export default function App() {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Filter domains or IPs..."
+                    placeholder={trans.filterPlaceholder}
                     className={`text-xs pl-9 pr-3 py-2 rounded-lg w-full md:w-56 focus:outline-none transition-all ${t.input}`}
                   />
                 </div>
@@ -1531,7 +1828,7 @@ export default function App() {
               {/* Operational Toolbar for display styles & bulk actions */}
               <div className={`px-6 py-3 border-b flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 text-xs ${isDark ? "border-slate-800/80 bg-slate-900/25 text-slate-400" : "border-slate-200/80 bg-slate-100/30 text-slate-600"}`}>
                 <div className="flex items-center gap-2">
-                  <span className={`font-medium ${isDark ? "text-slate-400" : "text-slate-500"}`}>Display Mode:</span>
+                  <span className={`font-medium ${isDark ? "text-slate-400" : "text-slate-500"}`}>{trans.displayMode}</span>
                   <div className={`p-0.5 rounded-lg border flex ${isDark ? "bg-[#0a0b0d] border-slate-800/80" : "bg-slate-100 border-slate-200"}`}>
                     <button
                       onClick={() => setViewMode("grouped")}
@@ -1543,7 +1840,7 @@ export default function App() {
                       title="Group subdomains under wildcard/apex domain folders"
                     >
                       <Folder className="w-3.5 h-3.5" />
-                      <span>Grouped View</span>
+                      <span>{trans.grouped}</span>
                     </button>
                     <button
                       onClick={() => setViewMode("list")}
@@ -1555,7 +1852,7 @@ export default function App() {
                       title="Flat checklist grid view"
                     >
                       <Globe className="w-3.5 h-3.5" />
-                      <span>Flat List</span>
+                      <span>{trans.list}</span>
                     </button>
                     <button
                       onClick={() => setViewMode("lite")}
@@ -1567,12 +1864,29 @@ export default function App() {
                       title="NOC style high density Lite monitoring view"
                     >
                       <Activity className="w-3.5 h-3.5" />
-                      <span>Lite NOC View</span>
+                      <span>{trans.liteNoc}</span>
                     </button>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
+                  {monitors.some((m) => m.disabled) && (
+                    <button
+                      onClick={enablePassiveMonitors}
+                      className={`px-3.5 py-1.5 rounded-lg border transition-all font-semibold cursor-pointer flex items-center gap-1.5 shadow-xs ${
+                        isDark
+                          ? "bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 hover:text-emerald-200 border-emerald-500/20"
+                          : "bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200"
+                      }`}
+                      title={language === "tr" ? "Tüm pasif monitörleri tekrar aktif et" : "Re-enable all passive monitors"}
+                    >
+                      <Eye className={`w-3.5 h-3.5 ${isDark ? "text-emerald-400" : "text-emerald-600"}`} />
+                      <span>{language === "tr" ? "Pasif Monitörleri Aktif Et" : "Enable Passive Monitors"}</span>
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full font-mono bg-emerald-500/20 font-bold">
+                        {monitors.filter((m) => m.disabled).length}
+                      </span>
+                    </button>
+                  )}
                   <button
                     onClick={disableFailedHandshakes}
                     className={`px-3.5 py-1.5 rounded-lg border transition-all font-semibold cursor-pointer flex items-center gap-1.5 ${
@@ -1583,7 +1897,7 @@ export default function App() {
                     title="Set all domains failing TLS handshake to passive mode"
                   >
                     <EyeOff className={`w-3.5 h-3.5 ${isDark ? "text-rose-400" : "text-rose-600"}`} />
-                    <span>Disable Failed Handshakes</span>
+                    <span>{language === "tr" ? "Başarısız Bağlantıları Devre Dışı Bırak" : "Disable Failed Handshakes"}</span>
                   </button>
                 </div>
               </div>
@@ -1594,7 +1908,7 @@ export default function App() {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                   <span className={`font-semibold text-xs tracking-wider uppercase flex items-center gap-1.5 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
                     <Filter className="h-3.5 w-3.5 text-blue-500" />
-                    Status Visibility:
+                    {trans.statusVisibility}
                   </span>
                   <div className="flex flex-wrap items-center gap-3">
                     {/* Valid Checkbox */}
@@ -1610,7 +1924,7 @@ export default function App() {
                         className="sr-only"
                       />
                       <span className={`w-2 h-2 rounded-full ${showValid ? "bg-emerald-500 shadow-xs" : "bg-slate-400"}`} />
-                      <span>Valid ({monitors.filter(m => m.lastResult?.status === "valid").length})</span>
+                      <span>{trans.valid} ({monitors.filter(m => m.lastResult?.status === "valid").length})</span>
                     </label>
 
                     {/* Warning Checkbox */}
@@ -1626,7 +1940,7 @@ export default function App() {
                         className="sr-only"
                       />
                       <span className={`w-2 h-2 rounded-full ${showWarning ? "bg-amber-500 shadow-xs" : "bg-slate-400"}`} />
-                      <span>Warning ({monitors.filter(m => m.lastResult?.status === "expiring_soon").length})</span>
+                      <span>{trans.warning} ({monitors.filter(m => m.lastResult?.status === "expiring_soon").length})</span>
                     </label>
 
                     {/* Failed / Expired Checkbox */}
@@ -1642,7 +1956,7 @@ export default function App() {
                         className="sr-only"
                       />
                       <span className={`w-2 h-2 rounded-full ${showFailed ? "bg-rose-500 shadow-xs" : "bg-slate-400"}`} />
-                      <span>Failed/Expired ({monitors.filter(m => !m.lastResult || m.lastResult.status === "expired" || m.lastResult.status === "invalid_chain" || m.lastResult.status === "connection_failed").length})</span>
+                      <span>{trans.failedExpired} ({monitors.filter(m => !m.lastResult || m.lastResult.status === "expired" || m.lastResult.status === "invalid_chain" || m.lastResult.status === "connection_failed").length})</span>
                     </label>
                   </div>
                 </div>
@@ -1650,7 +1964,7 @@ export default function App() {
                 {/* Advanced Sorting Controls */}
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                   <span className={`font-semibold text-xs tracking-wider uppercase flex items-center gap-1.5 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
-                    Sıralama / Sort:
+                    {trans.sortByLabel}
                   </span>
                   <div className="flex items-center gap-2">
                     <select
@@ -1660,9 +1974,9 @@ export default function App() {
                         isDark ? "bg-[#0f111a] border-slate-800 text-slate-200 focus:border-amber-500/40" : "bg-white border-slate-200 text-slate-700 focus:border-blue-550/40"
                       }`}
                     >
-                      <option value="domain">Domain Name (A-Z)</option>
-                      <option value="daysRemaining">Expiry Timeline (Kalan Gün)</option>
-                      <option value="lastScan">Last Scan Timestamp</option>
+                      <option value="domain">{trans.domainNameAZ}</option>
+                      <option value="daysRemaining">{trans.expiryTimeline}</option>
+                      <option value="lastScan">{trans.lastScanTimestamp}</option>
                     </select>
 
                     <button
@@ -1674,7 +1988,7 @@ export default function App() {
                       }`}
                       title={sortOrder === "asc" ? "Ascending order" : "Descending order"}
                     >
-                      <span>{sortOrder === "asc" ? "Asc (Artan)" : "Desc (Azalan)"}</span>
+                      <span>{sortOrder === "asc" ? trans.asc : trans.desc}</span>
                       {sortOrder === "asc" ? "↑" : "↓"}
                     </button>
 
@@ -1779,7 +2093,22 @@ export default function App() {
                               <span className={`text-[9px] font-bold tracking-wider font-mono uppercase ${isDark ? "text-slate-500" : "text-slate-400"}`}>
                                 {isPassive ? "PASSIVE" : (result?.securityGrade ? `GRADE ${result.securityGrade}` : "NO SCAN")}
                               </span>
-                              <span className={`w-2.5 h-2.5 rounded-full ${statusColor} ${pulse} shrink-0 mt-0.5`} />
+                              <div className="flex items-center gap-1">
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleDomainActive(m.id);
+                                  }}
+                                  className={`p-0.5 rounded transition-all cursor-pointer ${
+                                    isDark ? "hover:bg-slate-800 text-slate-500 hover:text-slate-300" : "hover:bg-slate-200 text-slate-400 hover:text-slate-700"
+                                  }`}
+                                  title={isPassive ? (language === "tr" ? "Aktif Et" : "Set Active") : (language === "tr" ? "Pasif'e Al" : "Set Passive")}
+                                >
+                                  {isPassive ? <EyeOff className="w-3 h-3 text-rose-400" /> : <Eye className="w-3 h-3 text-emerald-500" />}
+                                </button>
+                                <span className={`w-2.5 h-2.5 rounded-full ${statusColor} ${pulse} shrink-0`} />
+                              </div>
                             </div>
                             
                             <h4 className={`text-xs font-bold truncate ${isDark ? "text-slate-100" : "text-slate-800"}`} title={m.domain}>
@@ -2301,6 +2630,11 @@ export default function App() {
                         <span className={`text-xs font-mono px-1.5 py-0.5 rounded border ${isDark ? "text-slate-400 bg-slate-900/80 border-slate-800/60" : "text-slate-600 bg-slate-100 border-slate-200"}`}>
                           IP: {selectedMonitor.lastResult?.ipAddress || "Unresolved"}
                         </span>
+                        {selectedMonitor.disabled && (
+                          <span className={`px-1.5 py-0.5 rounded text-[10px] uppercase font-bold font-mono ${isDark ? "bg-slate-800 text-slate-400 border border-slate-700" : "bg-slate-200 text-slate-700 border border-slate-300"}`}>
+                            {language === "tr" ? "PASİF" : "PASSIVE"}
+                          </span>
+                        )}
                         {selectedMonitor.lastResult && (
                           <span
                             className={`px-1.5 py-0.5 rounded text-[10px] uppercase font-bold font-mono ${
@@ -2323,6 +2657,26 @@ export default function App() {
                   </div>
 
                   {/* Inspector Data Body */}
+                  {selectedMonitor.disabled && (
+                    <div className={`p-4 border-b text-xs flex items-center justify-between gap-3 ${isDark ? "bg-amber-500/10 border-amber-500/20 text-amber-300" : "bg-amber-50 border-amber-200 text-amber-800"}`}>
+                      <div className="flex items-center gap-2">
+                        <EyeOff className="h-4 w-4 shrink-0 text-amber-500" />
+                        <span>{language === "tr" ? "Bu monitör pasif durumdadır. Otomatik taramalar ve uyarılar durdurulmuştur." : "This monitor is passive. Automated scans and alerts are paused."}</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => toggleDomainActive(selectedMonitor.id)}
+                        className={`px-3 py-1.5 text-xs font-bold rounded-lg cursor-pointer transition-all shrink-0 flex items-center gap-1.5 ${
+                          isDark
+                            ? "bg-emerald-500 text-slate-900 hover:bg-emerald-400 shadow-xs"
+                            : "bg-emerald-600 text-white hover:bg-emerald-700 shadow-xs"
+                        }`}
+                      >
+                        <Eye className="h-3.5 w-3.5" />
+                        <span>{language === "tr" ? "Yeniden Aktif Et" : "Re-enable Now"}</span>
+                      </button>
+                    </div>
+                  )}
                   {selectedMonitor.lastResult ? (
                     <div className={`divide-y max-h-[70vh] overflow-y-auto ${isDark ? "divide-slate-800/80" : "divide-slate-200/80"}`}>
                       
@@ -2656,7 +3010,7 @@ export default function App() {
                   <div className={`p-5 flex items-center gap-2 ${isDark ? "bg-slate-900/20" : "bg-slate-50/50"}`}>
                     <button
                       onClick={() => scanDomain(selectedMonitor.id)}
-                      disabled={scanningId === selectedMonitor.id || scanningAll}
+                      disabled={scanningId === selectedMonitor.id || scanningAll || selectedMonitor.disabled}
                       className={`flex-1 inline-flex items-center justify-center gap-2 font-bold text-sm py-2.5 rounded-lg transition-all cursor-pointer shadow-sm disabled:opacity-40 ${
                         isDark
                           ? "bg-[#FCBE13] hover:bg-[#FCBE13]/90 text-slate-900 shadow-amber-950/20"
@@ -2672,6 +3026,31 @@ export default function App() {
                         <>
                           <RefreshCw className="h-4 w-4" />
                           <span>Audit Domain Now</span>
+                        </>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => toggleDomainActive(selectedMonitor.id)}
+                      className={`px-3 py-2.5 border transition-all rounded-lg font-semibold text-xs cursor-pointer flex items-center gap-1.5 shrink-0 ${
+                        selectedMonitor.disabled
+                          ? (isDark
+                              ? "border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300"
+                              : "border-emerald-200 bg-emerald-50 hover:bg-emerald-100 text-emerald-700")
+                          : (isDark
+                              ? "border-slate-800 bg-transparent hover:bg-slate-800 text-slate-400 hover:text-amber-300"
+                              : "border-slate-200 bg-white hover:bg-slate-100 text-slate-600 hover:text-amber-600")
+                      }`}
+                      title={selectedMonitor.disabled ? (language === "tr" ? "Aktif Moda Al" : "Set Active Mode") : (language === "tr" ? "Pasif'e Al" : "Set Passive Mode")}
+                    >
+                      {selectedMonitor.disabled ? (
+                        <>
+                          <Eye className="h-4 w-4 text-emerald-500" />
+                          <span className="hidden sm:inline">{language === "tr" ? "Aktif Et" : "Activate"}</span>
+                        </>
+                      ) : (
+                        <>
+                          <EyeOff className="h-4 w-4 text-slate-400" />
+                          <span className="hidden sm:inline">{language === "tr" ? "Pasif Yap" : "Deactivate"}</span>
                         </>
                       )}
                     </button>
@@ -2733,7 +3112,7 @@ export default function App() {
               <div className={`p-4 border-b flex items-center justify-between ${isDark ? "border-slate-800/80 bg-slate-900/20" : "border-slate-200 bg-slate-50"}`}>
                 <div className={`flex items-center gap-2 font-bold ${t.textTitle}`}>
                   <FileSpreadsheet className={`h-5 w-5 ${isDark ? "text-emerald-400" : "text-emerald-600"}`} />
-                  <h3>Bulk Import Domains / Zone Files</h3>
+                  <h3>{trans.csvModalTitle}</h3>
                 </div>
                 <button
                   onClick={() => setShowCsvModal(false)}
@@ -2745,7 +3124,7 @@ export default function App() {
 
               <div className="p-5 space-y-4">
                 <p className={`text-xs leading-relaxed ${isDark ? "text-slate-400" : "text-slate-600"}`}>
-                  Upload a CSV file, plain text list, or a DNS BIND Zone database export. The system will automatically parse and discover all valid domains/subdomains.
+                  {trans.csvModalDesc}
                 </p>
 
                 {/* Drag and Drop Container */}
@@ -2781,7 +3160,7 @@ export default function App() {
                       </div>
                       <div className="space-y-1">
                         <p className={`text-sm font-semibold truncate max-w-[280px] ${isDark ? "text-white" : "text-slate-900"}`}>{uploadedFile.name}</p>
-                        <p className={`text-xs ${isDark ? "text-slate-500" : "text-slate-400"}`}>{uploadedFile.size} • Loaded Successfully</p>
+                        <p className={`text-xs ${isDark ? "text-slate-500" : "text-slate-400"}`}>{uploadedFile.size} • {language === "tr" ? "Başarıyla Yüklendi" : "Loaded Successfully"}</p>
                       </div>
                       <button
                         type="button"
@@ -2791,7 +3170,7 @@ export default function App() {
                         }}
                         className="mt-1 px-2.5 py-1 text-[10px] font-bold text-rose-500 hover:text-rose-400 hover:bg-rose-500/10 rounded border border-rose-500/20 transition-all cursor-pointer"
                       >
-                        Remove File
+                        {language === "tr" ? "Dosyayı Kaldır" : "Remove File"}
                       </button>
                     </>
                   ) : (
@@ -2801,10 +3180,10 @@ export default function App() {
                       </div>
                       <div className="space-y-1">
                         <p className={`text-sm font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-                          Drag &amp; Drop File Here or Click to Browse
+                          {language === "tr" ? "Dosyayı Buraya Sürükleyip Bırakın veya Seçmek İçin Tıklayın" : "Drag & Drop File Here or Click to Browse"}
                         </p>
                         <p className={`text-xs ${isDark ? "text-slate-500" : "text-slate-400"}`}>
-                          Supports CSV, TXT or DNS Zone databases (.zone, .txt)
+                          {language === "tr" ? "CSV, TXT veya DNS Zone veri tabanlarını (.zone, .txt) destekler" : "Supports CSV, TXT or DNS Zone databases (.zone, .txt)"}
                         </p>
                       </div>
                     </>
@@ -2814,11 +3193,13 @@ export default function App() {
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <label className={`text-[10px] uppercase font-bold tracking-wider ${isDark ? "text-slate-500" : "text-slate-400"}`}>
-                      {uploadedFile ? "Parsed File Content Preview" : "Or Paste Domains / Zone Data Manually"}
+                      {uploadedFile 
+                        ? (language === "tr" ? "Ayrıştırılan Dosya İçeriği Önizlemesi" : "Parsed File Content Preview") 
+                        : (language === "tr" ? "Veya Alan Adlarını / Bölge Verilerini Manuel Olarak Yapıştırın" : "Or Paste Domains / Zone Data Manually")}
                     </label>
                     {uploadedFile && (
                       <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${isDark ? "text-emerald-400 bg-emerald-500/10" : "text-emerald-700 bg-emerald-50"}`}>
-                        Auto-detected
+                        {language === "tr" ? "Otomatik Algılandı" : "Auto-detected"}
                       </span>
                     )}
                   </div>
@@ -2830,7 +3211,7 @@ export default function App() {
                     className={`w-full border rounded-lg p-3 text-xs font-mono focus:outline-none transition-all ${
                       isDark 
                         ? "bg-[#0a0b0d] border-slate-800 text-white placeholder-slate-700 focus:border-amber-500/50" 
-                        : "bg-slate-50 border-slate-200 text-slate-800 placeholder-slate-400 focus:border-blue-500/50"
+                        : "bg-slate-50 border-slate-200 text-slate-800 placeholder-slate-400 focus:border-blue-550/50"
                     }`}
                   />
                 </div>
@@ -2848,7 +3229,7 @@ export default function App() {
                   onClick={() => setShowCsvModal(false)}
                   className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${isDark ? "text-slate-400 hover:text-white hover:bg-slate-800" : "text-slate-600 hover:text-slate-950 hover:bg-slate-100"}`}
                 >
-                  Cancel
+                  {language === "tr" ? "İptal" : "Cancel"}
                 </button>
                 <button
                   onClick={handleCsvImport}
@@ -2858,7 +3239,7 @@ export default function App() {
                       : "bg-[#1E40AF] hover:bg-blue-800 text-white shadow-sm"
                   }`}
                 >
-                  Extract &amp; Import
+                  {language === "tr" ? "Ayrıştır ve İçe Aktar" : "Extract & Import"}
                 </button>
               </div>
             </motion.div>
@@ -2886,9 +3267,17 @@ export default function App() {
                 <div className="w-12 h-12 bg-rose-500/10 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Trash2 className="h-6 w-6" />
                 </div>
-                <h3 className={`text-base font-bold mb-2 ${t.textTitle}`}>Stop Monitoring Domain?</h3>
+                <h3 className={`text-base font-bold mb-2 ${t.textTitle}`}>{language === "tr" ? "Alan Adı İzlemeyi Durdur?" : "Stop Monitoring Domain?"}</h3>
                 <p className={`text-xs leading-relaxed mb-6 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
-                  Are you sure you want to stop monitoring <span className={`font-mono font-semibold ${isDark ? "text-white" : "text-slate-900"}`}>{m.domain}</span>? This will clear its diagnostic logs and active subdomain map.
+                  {language === "tr" ? (
+                    <span>
+                      <span className={`font-mono font-semibold ${isDark ? "text-white" : "text-slate-900"}`}>{m.domain}</span> alan adını izlemeyi durdurmak istediğinizden emin misiniz? Bu işlem, tanı günlüklerini ve aktif alt alan adı haritasını temizleyecektir.
+                     </span>
+                  ) : (
+                    <span>
+                      Are you sure you want to stop monitoring <span className={`font-mono font-semibold ${isDark ? "text-white" : "text-slate-900"}`}>{m.domain}</span>? This will clear its diagnostic logs and active subdomain map.
+                    </span>
+                  )}
                 </p>
                 <div className="flex gap-3">
                   <button
@@ -2899,13 +3288,13 @@ export default function App() {
                         : "bg-white border-slate-200 text-slate-700 hover:text-slate-950 hover:bg-slate-100"
                     }`}
                   >
-                    Cancel
+                    {language === "tr" ? "İptal" : "Cancel"}
                   </button>
                   <button
                     onClick={() => executeDeleteDomain(deleteConfirmId)}
                     className="flex-1 px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-lg transition-all cursor-pointer shadow-sm"
                   >
-                    Stop Monitoring
+                    {language === "tr" ? "İzlemeyi Durdur" : "Stop Monitoring"}
                   </button>
                 </div>
               </motion.div>

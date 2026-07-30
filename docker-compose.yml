@@ -1,19 +1,18 @@
 version: '3.8'
 
 services:
-  ssl-monitor-asis:
+  ssl-monitor:
     build:
       context: .
       dockerfile: Dockerfile
-    image: dns-sentinel:latest  # İmajın yerelde dns-sentinel:latest olarak etiketlenmesini sağlar
-    container_name: asis-ssl-certificate-monitor
+    container_name: ssl-certificate-monitor
     restart: unless-stopped
     ports:
-      - "3036:3036"
+      - "3031:3031"
     environment:
-      - PORT=3036
+      - PORT=3031
       - NODE_ENV=production
-      - GEMINI_API_KEY=APIKEY #Varsa Gemini API Anahtarınız
-      - APP_URL=http://localhost:3036       # Sunucunuzun IP adresi ve portu
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - APP_URL=${APP_URL}
     volumes:
-      - ./data:/app/data                         # Sunucudaki ./data klasörünü container içine bağlar
+      - ./data:/app/data
